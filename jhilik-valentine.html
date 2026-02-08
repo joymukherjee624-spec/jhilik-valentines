@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Jhilik ❤️</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(to right,#ff758c,#ff7eb3);
+    text-align:center;
+    color:white;
+    overflow-x:hidden;
+}
+
+.container{
+    padding:20px 15px;
+}
+
+.card{
+    background:rgba(0,0,0,0.35);
+    padding:25px;
+    border-radius:20px;
+    max-width:450px;
+    margin:auto;
+    box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
+
+h1{font-size:28px;}
+h2{font-size:22px;}
+p{font-size:16px;}
+
+button{
+    padding:12px 22px;
+    border:none;
+    border-radius:25px;
+    font-size:16px;
+    cursor:pointer;
+    margin:8px;
+    transition:0.3s;
+}
+
+.yes{
+    background:white;
+    color:#ff4d6d;
+}
+
+.no{
+    background:#ff4d6d;
+    color:white;
+    position:relative;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+.hidden{
+    display:none;
+    margin-top:20px;
+    font-size:18px;
+}
+
+#countdown{
+    margin-top:15px;
+    font-size:17px;
+}
+
+.story{
+    margin-top:30px;
+    background:rgba(0,0,0,0.3);
+    padding:20px;
+    border-radius:20px;
+    font-size:15px;
+}
+
+.rose{
+    position:fixed;
+    top:-40px;
+    font-size:22px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+</audio>
+
+<div class="container">
+
+<div class="card">
+<h1>Jhilik ❤️</h1>
+
+<p id="typing"></p>
+
+<div id="countdown"></div>
+
+<h2>Will you be my Valentine? 💍</h2>
+
+<button class="yes" onclick="yesClicked()">Yes 💖</button>
+<button class="no" onclick="moveNo()">No 😜</button>
+
+<br>
+<button onclick="playMusic()">🎵 Play Music</button>
+
+<p id="response" class="hidden"></p>
+</div>
+
+<div class="story">
+<h2>Our Love Story 💕</h2>
+<p>
+Every love story is beautiful, but ours is my favorite.
+<br><br>
+From the first time we talked, you slowly became the most important part of my life.
+Your smile makes my worst days better.
+Your presence gives me peace.
+<br><br>
+I never believed someone could make life this special until you came.
+Jhilik, you are not just my love, you are my happiness and my forever.
+<br><br>
+— Yours always, Sourav ❤️
+</p>
+</div>
+
+</div>
+
+<script>
+
+function playMusic(){
+    document.getElementById("music").play();
+}
+
+const text="You came into my life like a beautiful dream that I never want to wake up from...";
+let index=0;
+
+function typeText(){
+    if(index<text.length){
+        document.getElementById("typing").innerHTML+=text.charAt(index);
+        index++;
+        setTimeout(typeText,40);
+    }
+}
+typeText();
+
+const countDate=new Date("Feb 14, 2026 00:00:00").getTime();
+
+setInterval(()=>{
+    const now=new Date().getTime();
+    const gap=countDate-now;
+
+    if(gap<0) return;
+
+    const d=Math.floor(gap/(1000*60*60*24));
+    const h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+    const m=Math.floor((gap%(1000*60*60))/(1000*60));
+    const s=Math.floor((gap%(1000*60))/1000);
+
+    document.getElementById("countdown").innerHTML=
+    "Countdown to our Valentine 💕<br>"+
+    d+"d "+h+"h "+m+"m "+s+"s";
+},1000);
+
+function yesClicked(){
+    document.getElementById("response").innerHTML=
+    "You made Sourav the happiest person alive ❤️ I Love You Jhilik!";
+    document.getElementById("response").style.display="block";
+
+    confetti({
+        particleCount:150,
+        spread:100,
+        origin:{y:0.6}
+    });
+}
+
+function moveNo(){
+    const btn=document.querySelector(".no");
+
+    const x=Math.random()*(window.innerWidth-100);
+    const y=Math.random()*(window.innerHeight-100);
+
+    btn.style.position="fixed";
+    btn.style.left=x+"px";
+    btn.style.top=y+"px";
+}
+
+function createRose(){
+    const rose=document.createElement("div");
+    rose.classList.add("rose");
+    rose.innerHTML="🌹";
+    rose.style.left=Math.random()*100+"vw";
+    rose.style.animationDuration=(Math.random()*2+3)+"s";
+
+    document.body.appendChild(rose);
+
+    setTimeout(()=>rose.remove(),5000);
+}
+
+setInterval(createRose,800);
+
+</script>
+
+</body>
+</html>
